@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using TestApi1.Models;
 using System.Web.Script.Serialization;
+using System.Web.Mvc;
 namespace TestApi1.Controllers
 {
     public class VehicleController : ApiController
@@ -47,6 +48,31 @@ namespace TestApi1.Controllers
            });
 
             return emp;
+
+        }
+        public string GetVehicleAction()
+        {
+            var CancelTokensrc = new CancellationTokenSource();
+            var cancelToken = CancelTokensrc.Token;
+
+            cancelToken.Register(() => TaskCancel());
+            string filename = "process" + DateTime.Now.Minute + DateTime.Now.Second;
+            //var t = Task.Factory.StartNew(() => TestMethod(cancelToken, filename), CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+            //Task.Run(() => TestMethod(cancelToken, filename), cancelToken);
+            //uncomment above line ,up to above code will do mutitask simultaneously
+            //brlow code is newly added for callback
+
+            Vehicleparam objVehicle = new JavaScriptSerializer().Deserialize<Vehicleparam>(param);
+
+            Task a = Task.Run(() => TestMethod(cancelToken, filename), cancelToken);
+
+            Task b = a.ContinueWith((Taskcall) =>
+            {
+                testcall(filename, objVehicle);
+
+            });
+
+            return "Acknowledgement";
 
         }
         private void testcall(string filename,Vehicleparam v)
