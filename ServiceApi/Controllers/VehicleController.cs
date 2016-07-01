@@ -24,9 +24,10 @@ namespace TestApi1.Controllers
             new Vehicle { Vid = 1, Name = "Benz"},
             new Vehicle { Vid = 2, Name = "BMW"},
         };
-        public string getstr()
+        [System.Web.Http.HttpGet]
+        public string getstr(int a)
         {
-            return "Test";
+            return a.ToString();
         }
 
         [System.Web.Http.HttpGet]
@@ -56,7 +57,7 @@ namespace TestApi1.Controllers
 
                });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -88,7 +89,7 @@ namespace TestApi1.Controllers
         //    return Json(param);
 
         //}
-        private void testcall(string filename,Vehicleparam v)
+        private void testcall(string filename, Vehicleparam v)
         {
             string lines = DateTime.Now.ToString();
             TextWriter tw = new StreamWriter("D:\\Sample/" + filename + " callb.txt", true);
@@ -97,7 +98,7 @@ namespace TestApi1.Controllers
             tw.WriteLine(json);
 
             //Write to file
-            
+
             tw.Close();
         }
 
