@@ -25,6 +25,7 @@ namespace TestApi1.Controllers
             new Vehicle { Vid = 2, Name = "BMW"},
         };
 
+        [System.Web.Http.HttpGet]
         public List<Vehicle> GetVehicle([FromUri]string param)
         {
             var CancelTokensrc = new CancellationTokenSource();
