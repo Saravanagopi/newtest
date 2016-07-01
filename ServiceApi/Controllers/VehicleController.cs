@@ -29,7 +29,11 @@ namespace TestApi1.Controllers
         {
             return a.ToString();
         }
-
+        [System.Web.Http.HttpGet]
+        public List<Vehicle> GetVehicleNew()
+        {
+            return emp;
+        }
         [System.Web.Http.HttpGet]
         public List<Vehicle> GetVehicle([FromUri]string param)
         {
