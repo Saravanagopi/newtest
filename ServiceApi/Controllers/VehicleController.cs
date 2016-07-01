@@ -28,26 +28,34 @@ namespace TestApi1.Controllers
         [System.Web.Http.HttpGet]
         public List<Vehicle> GetVehicle([FromUri]string param)
         {
-            var CancelTokensrc = new CancellationTokenSource();
-            var cancelToken = CancelTokensrc.Token;
+            try
+            {
 
-            cancelToken.Register(() => TaskCancel());
-            string filename = "process" + DateTime.Now.Minute + DateTime.Now.Second;
-            //var t = Task.Factory.StartNew(() => TestMethod(cancelToken, filename), CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default);
-            //Task.Run(() => TestMethod(cancelToken, filename), cancelToken);
-            //uncomment above line ,up to above code will do mutitask simultaneously
-            //brlow code is newly added for callback
 
-            Vehicleparam objVehicle = new JavaScriptSerializer().Deserialize<Vehicleparam>(param);
+                var CancelTokensrc = new CancellationTokenSource();
+                var cancelToken = CancelTokensrc.Token;
 
-            Task a = Task.Run(() => TestMethod(cancelToken, filename), cancelToken);
+                cancelToken.Register(() => TaskCancel());
+                string filename = "process" + DateTime.Now.Minute + DateTime.Now.Second;
+                //var t = Task.Factory.StartNew(() => TestMethod(cancelToken, filename), CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+                //Task.Run(() => TestMethod(cancelToken, filename), cancelToken);
+                //uncomment above line ,up to above code will do mutitask simultaneously
+                //brlow code is newly added for callback
 
-            Task b = a.ContinueWith((Taskcall) =>
-           {
-               testcall(filename, objVehicle);
+                Vehicleparam objVehicle = new JavaScriptSerializer().Deserialize<Vehicleparam>(param);
 
-           });
+                Task a = Task.Run(() => TestMethod(cancelToken, filename), cancelToken);
 
+                Task b = a.ContinueWith((Taskcall) =>
+               {
+                   testcall(filename, objVehicle);
+
+               });
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
             return emp;
 
         }
