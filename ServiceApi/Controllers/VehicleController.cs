@@ -24,6 +24,10 @@ namespace TestApi1.Controllers
             new Vehicle { Vid = 1, Name = "Benz"},
             new Vehicle { Vid = 2, Name = "BMW"},
         };
+        public string getstr()
+        {
+            return "Test";
+        }
 
         [System.Web.Http.HttpGet]
         public List<Vehicle> GetVehicle([FromUri]string param)
