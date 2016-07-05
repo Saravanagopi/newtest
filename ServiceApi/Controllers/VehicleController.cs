@@ -36,7 +36,7 @@ namespace TestApi1.Controllers
             return vmp;
         }
         [System.Web.Http.HttpGet]
-        public List<Vehicle> GetVehicleNewparam([FromUri]string param)
+        public List<Vehicle> GetVehicleNewparam(string param)
         {
             //Vehicleparam objVehicle = new JavaScriptSerializer().Deserialize<Vehicleparam>(param);
             return vmp;
