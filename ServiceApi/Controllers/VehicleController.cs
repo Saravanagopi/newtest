@@ -29,19 +29,25 @@ namespace TestApi1.Controllers
         public string getstr(int a)
         {
             return a.ToString();
-        }
+        } //work
 
+        [System.Web.Http.HttpGet]
         public List<Vehicle> GetVehicleNew()
         {
             return vmp;
-        }
+        }//WOrk
+
         [System.Web.Http.HttpGet]
-        public List<Vehicle> GetVehicleNewparam(string param)
+        public string GetVehicleNewparam(string param)
         {
             //Vehicleparam objVehicle = new JavaScriptSerializer().Deserialize<Vehicleparam>(param);
+            return param;
+        }
+        [System.Web.Http.HttpGet]
+        public List<Vehicle> GetVehicleTest([FromUri]string param)
+        {
             return vmp;
         }
-      
         public List<Vehicle> GetVehicle([FromUri]string param)
         {
             try
