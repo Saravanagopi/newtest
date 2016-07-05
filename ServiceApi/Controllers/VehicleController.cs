@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using TestApi1.Models;
 using System.Web.Script.Serialization;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 namespace TestApi1.Controllers
 {
     public class VehicleController : ApiController
@@ -19,7 +20,7 @@ namespace TestApi1.Controllers
             Console.WriteLine("Task Cancelled!!");
         }
 
-        List<Vehicle> emp = new List<Vehicle>()
+        List<Vehicle> vmp = new List<Vehicle>()
         {
             new Vehicle { Vid = 1, Name = "Benz"},
             new Vehicle { Vid = 2, Name = "BMW"},
@@ -29,10 +30,15 @@ namespace TestApi1.Controllers
         {
             return a.ToString();
         }
-        [System.Web.Http.HttpGet]
+
         public List<Vehicle> GetVehicleNew()
         {
-            return emp;
+            return vmp;
+        }
+        public List<Vehicle> GetVehicleNewparam(string param)
+        {
+            //Vehicleparam objVehicle = new JavaScriptSerializer().Deserialize<Vehicleparam>(param);
+            return vmp;
         }
         [System.Web.Http.HttpGet]
         public List<Vehicle> GetVehicle([FromUri]string param)
@@ -65,7 +71,7 @@ namespace TestApi1.Controllers
             {
                 throw ex;
             }
-            return emp;
+            return vmp;
 
         }
         //public ActionResult GetVehicleAction(string param)
